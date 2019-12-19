@@ -31,7 +31,7 @@ public class SingerController {
     }
 
     @PutMapping("/update/{id}")
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> updateSinger(@Valid @RequestBody Singer singer, @PathVariable("id") Long id) {
         Singer singer1 = singerService.findByIdSinger(id);
         singer1.setNameSinger(singer.getNameSinger());
@@ -44,7 +44,7 @@ public class SingerController {
     }
 
     @PostMapping("/create")
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<ResponseMessage> createSinger(@Valid @RequestBody Singer singer) {
         singer.setUser(this.userService.findById(getCurrentUser().getId()));
         singerService.save(singer);
@@ -64,7 +64,7 @@ public class SingerController {
     }
 
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ADMIN')")
     public ResponseEntity<?> deleteSinger(@PathVariable("id") Long id){
         singerService.delete(id);
         return new ResponseEntity<>(new ResponseMessage("delete success"),HttpStatus.OK);

@@ -17,26 +17,39 @@ import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-
 @CrossOrigin(origins = "*", maxAge = 21600000)
 @RestController
 @RequestMapping("/api/songs")
 public class SongController {
+
     @Autowired
     private SongService songService;
-    @Autowired
-    UserService userService;
 
-    private UserPrinciple getCurrentUser() {
+    @Autowired
+    private UserService userService;
+
+    private UserPrinciple getCurrentUser(){
         return (UserPrinciple) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
     @PostMapping("/create")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> createSong(@Valid @RequestBody Song songRequest) {
-        songRequest.setUser(this.userService.findById(getCurrentUser().getId()));
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    public ResponseEntity<?> createSong( @RequestBody Song songRequest) {
+//        songRequest.setUser(this.userService.findById(getCurrentUser().getId()));
+////        Song song = new Song(
+////                songRequest.getNameSong(),
+////                songRequest.getSinger(),
+////                songRequest.getCategory(),
+////                songRequest.getLyrics(),
+////                songRequest.getAvatarUrl(),
+////                songRequest.getMp3Url(),
+////                songRequest.getLikeSong(),
+////                songRequest.getListenSong(),
+////                songRequest.getDescribes()
+////
+////        );
         songService.save(songRequest);
-        return new ResponseEntity<>(new ResponseMessage("Create Song successfully!", null), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseMessage("Create Song successfully!",null), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -47,21 +60,34 @@ public class SongController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getSong(@PathVariable("id") Long id) {
+        System.out.println("ok");
         Song song = songService.findByIdSong(id);
         return new ResponseEntity<>(song, HttpStatus.OK);
+//        try {
+//            Song song = songService
+//                    .findById(id)
+//                    .orElseThrow(EntityNotFoundException::new);
+//            song.setListenSong(song.getListenSong()+ 1);
+//            songService.save(song);
+//            return new ResponseEntity<>(song, HttpStatus.OK);
+//        } catch (EntityNotFoundException e){
+//            return new ResponseEntity<>(new ResponseMessage(e.getMessage()),HttpStatus.NOT_FOUND);
+//        }
     }
 
+
     @DeleteMapping("/by/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> deleteSongById(@PathVariable("id") long id) {
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    public ResponseEntity<?> deleteSongById(@PathVariable("id") Long id) {
         songService.delete(id);
         return new ResponseEntity<>(new ResponseMessage("Delete Song successfully!"), HttpStatus.OK);
     }
 
-    @PutMapping("/update/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> updateSong(@RequestBody Song song, @PathVariable("id") Long id) {
+    @PutMapping("update/{id}")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    public ResponseEntity<?> updateSong(@RequestBody Song song, @PathVariable("id") Long id){
         Song song1 = songService.findByIdSong(id);
+
         song1.setAvatarUrl(song.getAvatarUrl());
         song1.setCategory(song.getCategory());
         song1.setDescribes(song.getDescribes());
@@ -71,9 +97,11 @@ public class SongController {
         song1.setLyrics(song.getLyrics());
         song1.setLikeSong(song.getLikeSong());
         song1.setListenSong(song.getListenSong());
-songService.save(song1);
-        return new ResponseEntity<>(new ResponseMessage("update song successfully!", null),HttpStatus.NO_CONTENT);
+
+        songService.save(song1);
+        return new ResponseEntity<>(new ResponseMessage("update song successfully!",null), HttpStatus.OK);
     }
+
     @GetMapping("/like/{id}")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> getSongLikedById(@PathVariable("id") Long id) {
@@ -107,6 +135,4 @@ songService.save(song1);
         return new ResponseEntity<>(songs,HttpStatus.OK);
     }
 
-
 }
-

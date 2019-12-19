@@ -12,17 +12,17 @@ public class Song {
     private String nameSong;
     private String singer;
     private String category;
- @ManyToOne
- @JoinColumn
- private User user;
-    @Lob
-    @Column(name = "lyrics", length = 51200)
+    @ManyToOne
+    @JoinColumn
+    private User user;
+//    @Lob
+//    @Column(name = "lyrics", length = 51200)
     private String lyrics;
     private int likeSong;
     private int listenSong;
     private String avatarUrl;
     private String mp3Url;
-    @Column (columnDefinition = "long")
+//    @Column(columnDefinition = "long")
     private String describes;
 
     public Song() {
