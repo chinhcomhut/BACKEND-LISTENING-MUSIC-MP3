@@ -12,7 +12,7 @@ public class Singer {
     private String nameSinger;
     private String information;
     private String singerAvatar;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name="singer_song",
     joinColumns = @JoinColumn(name = "singer_id"),
     inverseJoinColumns = @JoinColumn(name="song_id"))

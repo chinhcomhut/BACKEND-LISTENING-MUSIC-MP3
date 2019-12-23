@@ -39,6 +39,15 @@ public class User{
     @Size(max = 50)
     @Email
     private String email;
+private String avatarUrl;
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
 
     @NotBlank
     @Size(min=6, max = 100)

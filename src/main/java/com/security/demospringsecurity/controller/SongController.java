@@ -32,7 +32,7 @@ public class SongController {
         return (UserPrinciple) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
-    @PostMapping("/create")
+    @PostMapping("/creates")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> createSong( @RequestBody Song songRequest) {
 //        songRequest.setUser(this.userService.findById(getCurrentUser().getId()));

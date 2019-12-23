@@ -1,5 +1,6 @@
 package com.security.demospringsecurity.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.*;
@@ -15,7 +16,20 @@ public class Song {
     @ManyToOne
     @JoinColumn
     private User user;
-//    @Lob
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "player_id")
+    private Player player;
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    //    @Lob
 //    @Column(name = "lyrics", length = 51200)
     private String lyrics;
     private int likeSong;
@@ -128,4 +142,5 @@ public class Song {
     public void setDescribes(String describes) {
         this.describes = describes;
     }
+
 }
