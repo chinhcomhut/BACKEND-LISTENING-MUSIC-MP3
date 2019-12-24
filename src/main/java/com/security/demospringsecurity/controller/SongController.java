@@ -34,7 +34,7 @@ public class SongController {
 
     @PostMapping("/creates")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    public ResponseEntity<?> createSong( @RequestBody Song songRequest) {
+    public ResponseEntity<?> createSong( @Valid @RequestBody Song songRequest) {
 //        songRequest.setUser(this.userService.findById(getCurrentUser().getId()));
 ////        Song song = new Song(
 ////                songRequest.getNameSong(),

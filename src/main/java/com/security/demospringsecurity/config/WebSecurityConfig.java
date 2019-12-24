@@ -65,7 +65,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/category/**").permitAll()
                 .antMatchers("/api/playlist/**").permitAll()
                 .antMatchers("/api/singers/**").permitAll()
-                .antMatchers("/api/player/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling()

@@ -16,27 +16,14 @@ public class Song {
     @ManyToOne
     @JoinColumn
     private User user;
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "player_id")
-    private Player player;
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    //    @Lob
-//    @Column(name = "lyrics", length = 51200)
+        @Lob
+    @Column(name = "lyrics", length = 51200)
     private String lyrics;
     private int likeSong;
     private int listenSong;
     private String avatarUrl;
     private String mp3Url;
-//    @Column(columnDefinition = "long")
+    @Column(columnDefinition = "long")
     private String describes;
 
     public Song() {
