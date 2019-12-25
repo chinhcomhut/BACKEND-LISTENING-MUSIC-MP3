@@ -16,6 +16,8 @@ public interface PlaylistService {
 
     Playlist findByIdPlaylist(Long id);
 
+    void updatePlaylist(Playlist playlist);
+
     void save(Playlist playlist);
 
     void delete(Long id);

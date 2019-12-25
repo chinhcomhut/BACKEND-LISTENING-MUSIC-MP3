@@ -13,4 +13,5 @@ public interface SongRepository extends JpaRepository<Song, Long> {
     Optional<Song> findByNameSongContaining(String song);
     List<Song> findAllByOrderByLikeSongDesc();
     List<Song> findAllByOrderByListenSongDesc();
+    Optional<Song> findByMp3Url(String mp3Url);
 }

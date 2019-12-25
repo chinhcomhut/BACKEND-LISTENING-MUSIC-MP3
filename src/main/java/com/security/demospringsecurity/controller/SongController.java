@@ -1,6 +1,7 @@
 package com.security.demospringsecurity.controller;
 
 import com.security.demospringsecurity.message.response.ResponseMessage;
+import com.security.demospringsecurity.model.Playlist;
 import com.security.demospringsecurity.model.Song;
 import com.security.demospringsecurity.security.service.UserPrinciple;
 import com.security.demospringsecurity.service.SongService;
@@ -130,9 +131,16 @@ public class SongController {
     }
 
     @GetMapping("/search/{nameSong}")
-    public ResponseEntity<?> search(@PathVariable("nameSong") String nameSong){
+    public ResponseEntity<?> search(@PathVariable("nameSong") String nameSong) {
         Optional<Song> songs = songService.findByNameSongContaining(nameSong);
         return new ResponseEntity<>(songs,HttpStatus.OK);
     }
+
+    @GetMapping("/findByUrl/{mp3Url}")
+    public ResponseEntity<?> findByUrl(@PathVariable String mp3Url) {
+        Optional<Song> song = songService.findByMp3Url(mp3Url);
+        return new ResponseEntity<>(song, HttpStatus.OK);
+    }
+
 
 }

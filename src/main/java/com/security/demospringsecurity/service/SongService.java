@@ -9,6 +9,8 @@ import java.util.Optional;
 @Service
 public interface SongService {
 
+    Optional<Song> findByMp3Url(String mp3Url);
+
     List<Song> findAllByOrderByLikeSong();
 
     List<Song> findAllByOrderByListenSong();

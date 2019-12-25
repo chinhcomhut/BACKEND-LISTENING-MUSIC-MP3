@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/playlist")
 public class PlaylistController {
@@ -79,5 +79,10 @@ public class PlaylistController {
     public ResponseEntity<?> deletePlaylist(@PathVariable("id") Long id) {
         playlistService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @PutMapping("/update")
+    public ResponseEntity<?> updatePlayList(@RequestBody Playlist playlist){
+        playlistService.updatePlaylist(playlist);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

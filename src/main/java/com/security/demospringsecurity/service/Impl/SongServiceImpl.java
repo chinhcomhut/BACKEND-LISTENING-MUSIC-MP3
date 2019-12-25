@@ -29,6 +29,11 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
+    public Optional<Song> findByMp3Url(String mp3Url) {
+        return songRepository.findByMp3Url(mp3Url);
+    }
+
+    @Override
     public List<Song> findAllByOrderByLikeSong() {
         return songRepository.findAllByOrderByLikeSongDesc();
     }
